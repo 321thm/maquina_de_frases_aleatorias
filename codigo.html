@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>            
+    <script  src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frases importantes</title>
+    <style>
+        body{
+            background-color: black;
+            color: white;
+            font: 20px Arial;
+        }
+        #conteiner{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #quote-box {
+            background-color: rgb(145, 142, 6);
+            margin-top: 40vh;
+            text-align: center;
+        }
+        button{
+            font: 18px Arial;
+            background-color: blue;
+        }
+        #botão{
+            text-align: end;
+            padding-right: 10px;
+        }
+        #conteiner2{
+            text-align: start;
+            padding-left: 10px;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id='conteiner'>
+     <div id='quote-box'>
+        <div id='text'>
+
+        </div>
+
+        <div id='author'>
+
+        </div>
+        
+        <div id='botão'>
+
+        </div>
+        
+        <div id='conteiner2'>
+        <a id='tweet-quote' href='https://twitter.com/intent/tweet'>
+            Comente essa frase
+        </a>
+    </div>
+        </div>
+    </div>
+</body>
+    <script type='text/babel'>
+
+const frases_importantes = {
+    imaginacao: ['"A imaginação é mais importante que o conhecimento."', '- Einstein'],
+    pintura: ['"Eu sonho minha pintura, e então eu pinto o meu sonho."', '- Van Gogh'],
+    idiotice: ['"Só duas coisas são infinitas, o universo e a estupidez humana, mas não estou seguro sobre o primeiro."', '- Einstein'],
+    insanidade: [' “Insanidade é continuar fazendo sempre a mesma coisa e esperar resultados diferentes”', '- Einstein']
+}
+
+var frase
+
+var array
+
+var frase2 = Object.values(frases_importantes).length
+sorteio()
+
+function sorteio(){
+    frase = Math.floor((Math.random() * 4))
+    if(frase == frase2){
+        sorteio()
+        return
+    }
+    frase2 = frase
+    array = Object.values(frases_importantes)[frase2]
+}
+
+class Texto extends React.Component { 
+  constructor(props) {
+    super(props);
+  }
+  render(){ 
+    return(
+        <>
+        {array[0]}
+        </>
+    )
+  }
+  }
+  class Autor extends React.Component { 
+  constructor(props) {
+    super(props);
+  }
+  render(){ 
+    return(
+        <>
+        {array[1]}
+        </>
+    )
+  }
+  }
+  class Nova_frase extends React.Component { 
+  constructor(props) {
+    super(props);
+  }
+    mudar(){
+        sorteio()
+        ReactDOM.render(<Texto />, document.getElementById('text'))
+        ReactDOM.render(<Autor />, document.getElementById('author'))
+        ReactDOM.render(<Nova_frase />, document.getElementById('botão'))
+    }
+  render(){ 
+    return(
+        <>
+        <button onClick={this.mudar} id='new-quote'> 
+            Nova frase    
+        </button>
+        </>
+    )
+  }
+  }
+
+  ReactDOM.render(<Texto />, document.getElementById('text'))
+  ReactDOM.render(<Autor />, document.getElementById('author'))
+  ReactDOM.render(<Nova_frase />, document.getElementById('botão'))
+
+    </script>
+</html>
